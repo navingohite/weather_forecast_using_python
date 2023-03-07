@@ -7,13 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>How's the weather today?</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+
     <style>
         body {
             background-color: #fafafa;
         }
 
         .hero.is-primary {
-            background-color: #209cee;
+            background-color: #6a0ec6;
         }
 
         .title {
@@ -127,6 +128,20 @@
             cursor: pointer;
             font-size: 1.5rem;
         }
+
+        .custom-button {
+            background-color: #2d3748;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .custom-button:hover {
+            background-color: #4a5568;
+        }
     </style>
 </head>
 
@@ -138,11 +153,11 @@
                 <h1 class="title">
                     How's the weather today?
                 </h1>
-                <p>Get the latest weather updates with our weather app! Whether you're planning your day, your week, or
-                    your next vacation, our app makes it easy to stay informed about the current weather conditions in
-                    any city around the world. With accurate and up-to-date information, you'll always know what to
-                    expect from the weather, so you can plan accordingly and stay safe and comfortable no matter where
-                    you go.</p>
+                <p>Get live weather updates with our weather app! Our app provides accurate and up-to-date information
+                    on the current weather conditions in any city around the world. Whether you're planning your day,
+                    your week, or your next vacation, our app makes it easy to stay informed and prepared. With our live
+                    weather updates, you'll always know what to expect from the weather, so you can plan accordingly and
+                    stay safe and comfortable no matter where you go.</p>
             </div>
         </div>
     </section>
@@ -151,10 +166,12 @@
     <script>
         setTimeout(function () {
             location.reload();
-        }, 8000);
+        }, 20000);
     </script>
 
     <br>
+
+
 
     <div class="container mt-10">
         <div class="row justify-content-center">
@@ -163,7 +180,7 @@
                 <form method="post" class="border rounded p-3 bg-light">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-3 custom-button">Submit</button>
                 </form>
             </div>
         </div>
@@ -178,19 +195,22 @@
         {% endfor %}
 
         {% for weather in weather_data %}
+
+
+
         <div class="weather">
             <h2>{{ weather.city }}</h2>
             <p>Temperature: {{ weather.temperature }}&deg;F</p>
-            <p>Description: {{ weather.description }}</p>
+            <p>Description: {{ weather.description }}</p>        
             <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png">
         </div>
         {% endfor %}
     </div>
 
     <footer class="footer">
-                <div class="container">
-                <p>Desing and Developed by <a href="#">Todaysweather</a></p>
-                </div>
+        <div class="container">
+            <p>Desing and Developed by <a href="#">Todaysweather</a></p>
+        </div>
     </footer>
 
 </body>
