@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>How's the weather today?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+
+        .hero.is-primary {
+            background-color: #209cee;
+        }
+
+        .title {
+            color: #fff;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            text-shadow: 1px 1px #000;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .weather {
+            background-color: #15d0b7;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+        }
+
+        .weather h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .weather p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .weather img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        form {
+            margin-top: 2rem;
+        }
+
+        input[type="text"] {
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: none;
+            background-color: #209cee;
+            color: #fff;
+            width: 100%;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .weather {
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+            font-size: 1.2rem;
+            font-family: 'Roboto', sans-serif;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .weather:hover {
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .weather img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .weather h2 {
+            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .weather p {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border: none;
+            background-color: transparent;
+            color: red;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    How's the weather today?
+                </h1>
+                <p>Get the latest weather updates with our weather app! Whether you're planning your day, your week, or
+                    your next vacation, our app makes it easy to stay informed about the current weather conditions in
+                    any city around the world. With accurate and up-to-date information, you'll always know what to
+                    expect from the weather, so you can plan accordingly and stay safe and comfortable no matter where
+                    you go.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        setTimeout(function () {
+            location.reload();
+        }, 8000);
+    </script>
+
+    <br>
+
+    <div class="container mt-10">
+        <div class="row justify-content-center">
+            <div class="col-3"></div>
+            <div class="col-6 mx-auto my-5">
+                <form method="post" class="border rounded p-3 bg-light">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        {% for message in messages %}
+        <div class="notification is-danger">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% for weather in weather_data %}
+        <div class="weather">
+            <h2>{{ weather.city }}</h2>
+            <p>Temperature: {{ weather.temperature }}&deg;F</p>
+            <p>Description: {{ weather.description }}</p>
+            <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png">
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer class="footer">
+                <div class="container">
+                <p>Desing and Developed by <a href="#">Todaysweather</a></p>
+                </div>
+    </footer>
+
+</body>
+
+</html>
